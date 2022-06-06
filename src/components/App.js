@@ -2,7 +2,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function App() {
@@ -12,19 +12,19 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handleEditProfileClick = () => {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(true);
   }
   const handleAddPlaceClick = () => {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(true);
   }
   const handleEditAvatarClick = () => {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setIsEditAvatarPopupOpen(true);
   }
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard(null);
   }
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -41,7 +41,7 @@ function App() {
     onCardClick={handleCardClick}
     />
     <Footer />
-    
+
     <PopupWithForm
         title="Редактировать профиль"
         name="profile"
