@@ -79,6 +79,21 @@ class Api {
     getAllData() {
         return Promise.all([this.getInitialCards(),this.getUserInfo()])
     }
+    changeLikeCardStatus(data, isLiked) {
+        if (!isLiked) {
+          return fetch(`${this._url}/cards/${data}/likes`, {
+            method: 'PUT',
+            headers: this._headers
+          })
+          .then((res) => this._checkResponse(res));
+        } else {
+          return fetch(`${this._url}/cards/${data}/likes`, {
+            method: 'DELETE',
+            headers: this._headers
+          })
+          .then((res) => this._checkResponse(res));
+        }
+      }
 }
   const api = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-40',
