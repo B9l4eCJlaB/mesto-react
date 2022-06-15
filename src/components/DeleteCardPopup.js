@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
-function DeleteCardPopup({isOpen, onClose, onDeleteCard, card}) {
+function DeleteCardPopup({isOpen, onClose, onDeleteCard, card, isLoading}) {
     const currentUser = useContext(CurrentUserContext);
     const handleDeleteCard = (e) => {
         e.preventDefault();
@@ -13,10 +13,12 @@ function DeleteCardPopup({isOpen, onClose, onDeleteCard, card}) {
         <PopupWithForm
         title="Вы уверены?"
         name="delete"
-        button="Да"
+        buttonText="Да"
+        buttonLoadingText="Удаление..."
         isOpen={isOpen}
         onClose={onClose}
         onSubmit={handleDeleteCard}
+        isLoading={isLoading}
          />
     )
 }

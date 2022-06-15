@@ -1,5 +1,5 @@
 
-function PopupWithForm({title, name, button, children, isOpen, onClose, onSubmit}) {
+function PopupWithForm({title, name, buttonText, children, isOpen, onClose, onSubmit, isLoading, buttonLoadingText}) {
     return (
         <section className={`popup popup-${name} ${isOpen ? 'popup_opened' : ''}`}>
         <div className="popup__main-container">
@@ -8,7 +8,7 @@ function PopupWithForm({title, name, button, children, isOpen, onClose, onSubmit
                 <h2 className="popup__heading">{title}</h2>
                 <fieldset className="popup__input-container">
                     {children}
-                    <button className="popup__submit-button" type="submit">{button}</button>
+                    <button className="popup__submit-button" type="submit">{!isLoading ? buttonText : buttonLoadingText}</button>
                 </fieldset>
             </form>
         </div>

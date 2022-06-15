@@ -20,6 +20,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [deleteCard, setDeleteCard] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     api.getUserInfo()
@@ -66,34 +67,42 @@ function App() {
     .catch((err) => console.log(err));
   }
   const handleCardDelete = (card) => {
+    setIsLoading(true);
     api.delete(card._id).then(() => {
       setCards((state) => state.filter((c) => c._id !== card._id && c))
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false))
     closeAllPopups();
   }
   const handleUpdateUser = (data) => {
+    setIsLoading(true);
     api.setUserInfoApi(data)
       .then(data => {
         setCurrentUser(data);
       })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
+          .finally(() => setIsLoading(false));
         closeAllPopups();
   }
   const handleUpdateAvatar = (data) => {
+    setIsLoading(true);
     api.handleAvatar(data)
       .then(data => {
         setCurrentUser(data);
       })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
+          .finally(() => setIsLoading(false));
         closeAllPopups();
   }
   const onAddPlace = (data) => {
+    setIsLoading(true);
     api.addUserCard(data)
       .then(newCard => {
         setCards([newCard, ...cards]);
       })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
+          .finally(() => setIsLoading(false));
         closeAllPopups();
   }
 
@@ -117,18 +126,21 @@ function App() {
     isOpen={isEditProfilePopupOpen}
     onClose={closeAllPopups}
     onUpdateUser={handleUpdateUser}
+    isLoading={isLoading}
     />
 
     <EditAvatarPopup
     isOpen={isEditAvatarPopupOpen}
     onClose={closeAllPopups}
     onUpdateAvatar={handleUpdateAvatar}
+    isLoading={isLoading}
     />
     
     <AddPlacePopup
     isOpen={isAddPlacePopupOpen}
     onClose={closeAllPopups}
     onAddPlace={onAddPlace}
+    isLoading={isLoading}
     />
 
     <DeleteCardPopup
@@ -136,6 +148,7 @@ function App() {
     isOpen={isDeleteCardPopupOpen}
     onClose={closeAllPopups}
     onDeleteCard={handleCardDelete}
+    isLoading={isLoading}
     />
 
     <ImagePopup card={selectedCard} onClose={closeAllPopups} />
