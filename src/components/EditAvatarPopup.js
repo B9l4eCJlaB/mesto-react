@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoading}) {
-    const [avatar, setAvatar] = useState('');
     const avatarRef = useRef(null);
 
     const handleSubmit = (e) => {
@@ -9,10 +8,6 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoading}) {
         onUpdateAvatar({
             avatar: avatarRef.current.value
         })
-        setAvatar('');
-    }
-    const handleAvatar = (e) => {
-        setAvatar(e.target.value);
     }
     return (
         <PopupWithForm
@@ -31,8 +26,6 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoading}) {
         type="url"
         required
         ref={avatarRef}
-        onChange={handleAvatar}
-        value={avatar || ''}
         placeholder="Ссылка на картинку" />
                 <span className="popup__error input-avatar-error"></span>
         </PopupWithForm>
